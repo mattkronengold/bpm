@@ -13,6 +13,7 @@ def welcome():
         print('0:\tyes')
         print('1:\tno')
         has_account = input()
+        print('\n')
         
         if (has_account == '0'):
             print('Login: ')
