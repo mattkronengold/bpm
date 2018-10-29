@@ -23,7 +23,7 @@ def welcome():
         print('0:\tyes')
         print('1:\tno')
         has_account = input()
-        
+
         if (has_account == '0'):
             user_id = create_username()
             authenticate()
@@ -43,7 +43,7 @@ def create_username():
         user_id = c.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,))
         conn.commit()
         return user_id.fetchone()[0]
-    except: 
+    except:
         print('That username is already taken. Please enter a different username.\n')
         create_username()
 
@@ -52,7 +52,7 @@ def authenticate():
 	"?redirect_uri=" + REDIRECT_URI + \
 	"&scope=" + SCOPES + \
 	"&client_id=" + CLIENT_ID + \
-	"&response_type=code" 
+	"&response_type=code"
 	auth_req.replace(":", "%3A").replace("/", "%2F").replace(" ", "+")
 	webbrowser.open(auth_req)
 
