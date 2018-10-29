@@ -8,7 +8,7 @@ C = CONN.cursor()
 CLIENT_ID = '482102fb45cb45fdb465ef73801f4665'
 CLIENT_SECRET = 'dc7269e0e5a84e71b9b27f857055b41f'
 REDIRECT_URI = 'https://localhost/'
-SCOPES = 'user-library-modify user-read-playback-state user-read-currently-playing user-modify-playback-state user-read-recently-played'
+SCOPES = 'user-library-modify user-library-read user-read-playback-state user-read-currently-playing user-modify-playback-state user-read-recently-played'
 
 def welcome():
     login_result = C.execute('SELECT COUNT(*) FROM Credentials').fetchone()[0]
@@ -111,5 +111,8 @@ def finish_auth(user_id, auth_code):
     CONN.commit()
 
 def get_current_user_token():
-    access_token = C.execute('SELECT C.access_token FROM Credentials C').fetchone()[0] 
+    local_conn = sqlite3.connect("bpm.db")
+    c = local_conn.cursor()
+    access_token = c.execute('SELECT C.access_token FROM Credentials C').fetchone()[0]
+    local_conn.close()
     return access_token
