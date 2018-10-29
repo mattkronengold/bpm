@@ -1,11 +1,9 @@
 import sqlite3
-import requests
-import sys
-import datetime
 import webbrowser
+import requests
 
-conn = sqlite3.connect("bpm.db")
-c = conn.cursor()
+CONN = sqlite3.connect("bpm.db")
+C = CONN.cursor()
 
 CLIENT_ID = '482102fb45cb45fdb465ef73801f4665'
 CLIENT_SECRET = 'dc7269e0e5a84e71b9b27f857055b41f'
@@ -13,7 +11,7 @@ REDIRECT_URI = 'https://localhost/'
 SCOPES = 'user-library-modify user-read-playback-state user-read-currently-playing user-modify-playback-state user-read-recently-played'
 
 def welcome():
-    login_result = c.execute('SELECT COUNT(*) FROM Credentials').fetchone()[0]
+    login_result = C.execute('SELECT COUNT(*) FROM Credentials').fetchone()[0]
     if login_result == 1:
         print('Welcome back to BPM!')
         return True
@@ -24,12 +22,12 @@ def welcome():
         print('1:\tNo')
         has_account = input()
 
-        if (has_account == '0'):
+        if has_account == '0':
             user_id = get_username()
             if user_id:
                 authenticate()
                 get_code(user_id)
-                conn.close()
+                CONN.close()
                 return True
             else:
                 return False
@@ -38,11 +36,11 @@ def welcome():
             print('0:\tYes')
             print('1:\tNo')
             has_spotify = input()
-            if (has_spotify == '0'):
+            if has_spotify == '0':
                 user_id = create_username()
                 authenticate()
                 get_code(user_id)
-                conn.close()
+                CONN.close()
                 return True
             else:
                 print('Please sign up for a Spotify account and return.\n')
@@ -51,20 +49,20 @@ def welcome():
 def get_username():
     username = input('Enter your BPM username: ')
     try:
-        user_id = c.execute("SELECT U.id FROM User U WHERE U.username='%s'" % username).fetchone()[0]
+        user_id = C.execute("SELECT U.id FROM User U WHERE U.username='%s'" % username).fetchone()[0]
         return user_id
     except:
         print('There are no users with that username. Would you like to try again or create a new account?')
         print('0:\tTry Again')
         print('1:\tCreate New Account')
-        if(input() == '0'):
+        if input() == '0':
             return get_username()
         else:
             print('Do you have a Spotify account?')
             print('0:\tYes')
             print('1:\tNo')
             has_spotify = input()
-            if (has_spotify == '0'):
+            if has_spotify == '0':
                 return create_username()
             else:
                 print('Please sign up for a Spotify account and return.\n')
@@ -73,9 +71,9 @@ def get_username():
 def create_username():
     username = input('Please enter a username for your new BPM account\n')
     try:
-        c.execute('INSERT INTO User(username) VALUES (?);', (username,))
-        conn.commit()
-        user_id = c.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,)).fetchone()[0]
+        C.execute('INSERT INTO User(username) VALUES (?);', (username,))
+        CONN.commit()
+        user_id = C.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,)).fetchone()[0]
         return user_id
     except:
         print('That username is already taken. Please enter a different username.\n')
@@ -108,10 +106,10 @@ def finish_auth(user_id, auth_code):
     refresh_token = resp_json["refresh_token"]
     expires_in = resp_json["expires_in"]
 
-    c.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_in) VALUES (?, ?, ?, ?);', (user_id, \
+    C.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_in) VALUES (?, ?, ?, ?);', (user_id, \
         access_token, refresh_token, expires_in))
-    conn.commit()
+    CONN.commit()
 
 def get_current_user_token():
-    access_token = c.execute('SELECT C.access_token FROM Credentials C').fetchone()[0] 
+    access_token = C.execute('SELECT C.access_token FROM Credentials C').fetchone()[0] 
     return access_token
