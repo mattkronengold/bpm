@@ -4,7 +4,7 @@ import sys
 import datetime
 import webbrowser
 
-conn = sqlite3.connect("C:\\sqlite\\bpm.db")
+conn = sqlite3.connect("bpm.db")
 c = conn.cursor()
 
 CLIENT_ID = '482102fb45cb45fdb465ef73801f4665'

@@ -1,7 +1,7 @@
 import sys
 import sqlite3
 
-conn = sqlite3.connect("C:\\sqlite\\bpm.db")
+conn = sqlite3.connect("bpm.db")
 c = conn.cursor()
 
 def logout():
