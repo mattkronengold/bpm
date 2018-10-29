@@ -6,10 +6,10 @@ def get_length():
 			return length
 		else:
 			print('Please enter a duration between 5-90.')
-			get_length()
+			return get_length()
 	except:
 		print('Please enter a duration between 5-90.')
-		get_length()
+		return get_length()
 
 def get_genre():
 	print('Enter your genre preference: ')
@@ -27,10 +27,10 @@ def get_genre():
 			return genre
 		else:
 			print('Please enter an integer value corresponding to the following genres: ')
-			get_genre()
+			return get_genre()
 	except:
 		print('Please enter an integer value corresponding to the following genres: ')
-		get_genre()
+		return get_genre()
 
 
 def get_speed(start_or_end):
@@ -40,8 +40,8 @@ def get_speed(start_or_end):
 		if speed in range(50, 301):
 			return speed
 		else:
-			print('Please enter a speed between 50-301 SPM')
-			get_speed(start_or_end)
+			print('Please enter a speed between 50-300 SPM')
+			return get_speed(start_or_end)
 	except:
-			print('Please enter a speed between 50-301 SPM')
-			get_speed(start_or_end)
+			print('Please enter a speed between 50-300 SPM')
+			return get_speed(start_or_end)
