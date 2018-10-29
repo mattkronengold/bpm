@@ -37,8 +37,10 @@ def create_credentials(db_file):
 if __name__ == '__main__':
 	conn = sqlite3.connect("C:\\sqlite\bpm.db")
 	c=conn.cursor()
-	c.execute('SELECT * FROM Credentials')
-	rows = c.fetchall()
-	for row in rows:
-		print(row)
-	conn.close()
+	c.execute('SELECT * FROM User')
+	user_id = c.execute("SELECT U.id FROM User U WHERE U.username='%s'" % "katie").fetchone()[0]
+	print(user_id)
+	# rows = c.fetchall()
+	# for row in rows:
+		# print(row)
+	# conn.close()
