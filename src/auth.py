@@ -111,3 +111,7 @@ def finish_auth(user_id, auth_code):
     c.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_in) VALUES (?, ?, ?, ?);', (user_id, \
         access_token, refresh_token, expires_in))
     conn.commit()
+
+def get_current_user_token():
+    access_token = c.execute('SELECT C.access_token FROM Credentials C').fetchone()[0] 
+    return access_token
