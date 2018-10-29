@@ -1,13 +1,41 @@
-import pickle
+import sqlite3
 import requests
 import sys
-import time
+import datetime
 import webbrowser
+
+conn = sqlite3.connect("C:\\sqlite\bpm.db")
+c = conn.cursor()
 
 CLIENT_ID = '482102fb45cb45fdb465ef73801f4665'
 CLIENT_SECRET = 'dc7269e0e5a84e71b9b27f857055b41f'
 REDIRECT_URI = 'https://localhost/'
 SCOPES = 'user-library-modify user-read-playback-state user-read-currently-playing user-modify-playback-state user-read-recently-played'
+
+def welcome():
+    login_result = c.execute('SELECT COUNT(*) FROM Credentials')
+    if login_result == 1:
+        print('Welcome back to BPM!')
+    else:
+        print('Welcome to BPM!')
+        print('Do you have a Spotify account?')
+        print('0:\tyes')
+        print('1:\tno')
+        has_account = input()
+        
+        if (has_account == '0'):
+            username = input('Please enter a username for your new BPM account\n')
+            c.execute('INSERT INTO User(username) VALUES (?);', (username,))
+            conn.commit()
+            user_id = c.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,))
+            conn.commit()
+            authenticate()
+            get_code(user_id)
+            conn.close()
+        else:
+            print('Please sign up for a Spotify account and return.\n')
+
+
 
 def authenticate():
 	auth_req = "https://accounts.spotify.com/authorize" + \
@@ -17,36 +45,26 @@ def authenticate():
 	"&response_type=code" 
 	auth_req.replace(":", "%3A").replace("/", "%2F").replace(" ", "+")
 	webbrowser.open(auth_req)
-	#finish login process
 
-def get_code():
+def get_code(user_id):
     print("Please copy and paste your validation code from the browser: ")
     auth_code = input()
-    finish_auth(auth_code)
+    finish_auth(user_id, auth_code)
 
-def finish_auth(auth_code):
-    # application requests access tokens and refresh tokens
+def finish_auth(user_id, auth_code):
     resp = requests.post("https://accounts.spotify.com/api/token",
                          data={"grant_type": "authorization_code",
                                "redirect_uri": REDIRECT_URI,
                                "code": auth_code},
                          auth=(CLIENT_ID, CLIENT_SECRET))
     resp.raise_for_status()
-
-    # pickle tokens so user does not have to re-authenticate
     resp_json = resp.json()
-    pickle_data = {
-        "access_token": resp_json["access_token"],
-        "refresh_token": resp_json["refresh_token"],
-        "expires_in": resp_json["expires_in"],
-        "last_refreshed": time.time(),
-    }
 
-    # DO NOT DUMP TO PICKLE
-    with open("token.pk", "wb") as pickle_file:
-        pickle.dump(pickle_data, pickle_file)
+    access_token = resp_json["access_token"]
+    refresh_token = resp_json["refresh_token"]
+    expires_in = resp_json["expires_in"]
 
-    # sqlalchemy.whatever.exec('INSERT INTO user_auth (access_token, refresh_token, expires_in, last_refreshed) VALUES (%s, %s, %s, %s)', access_token, refresh_token, expires_in, last_refreshed)
+    c.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_in) VALUES (?, ?, ?, ?);', (user_id, \
+        access_token, refresh_token, expires_in))
 
-authenticate() 
-get_code()
+welcome()
