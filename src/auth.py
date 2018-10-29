@@ -24,7 +24,8 @@ def welcome():
         has_account = input()
         
         if (has_account == '0'):
-            username = input('Please enter a username for your new BPM account\n')
+            username = input('Please enter a username for your new BPM account: \n')
+            # need an error handlng statement if username is already in table
             c.execute('INSERT INTO User(username) VALUES (?);', (username,))
             conn.commit()
             user_id = c.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,))
@@ -34,8 +35,6 @@ def welcome():
             conn.close()
         else:
             print('Please sign up for a Spotify account and return.\n')
-
-
 
 def authenticate():
 	auth_req = "https://accounts.spotify.com/authorize" + \
@@ -65,6 +64,6 @@ def finish_auth(user_id, auth_code):
     expires_in = resp_json["expires_in"]
 
     c.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_in) VALUES (?, ?, ?, ?);', (user_id, \
-        access_token, refresh_token, expires_in))
+        access_token, refresh_token, expires_in,))
 
 welcome()
