@@ -19,33 +19,67 @@ def welcome():
         return True
     else:
         print('Welcome to BPM!')
-        print('Do you have a Spotify account?')
-        print('0:\tyes')
-        print('1:\tno')
+        print('Do you have a BPM account?')
+        print('0:\tYes')
+        print('1:\tNo')
         has_account = input()
 
         if (has_account == '0'):
-            user_id = create_username()
-            authenticate()
-            get_code(user_id)
-            conn.close()
-            return True
+            user_id = get_username()
+            if user_id:
+                authenticate()
+                get_code(user_id)
+                conn.close()
+                return True
+            else:
+                return False
         else:
-            print('Please sign up for a Spotify account and return.\n')
-            return False
+            print('Do you have a Spotify account?')
+            print('0:\tYes')
+            print('1:\tNo')
+            has_spotify = input()
+            if (has_spotify == '0'):
+                user_id = create_username()
+                authenticate()
+                get_code(user_id)
+                conn.close()
+                return True
+            else:
+                print('Please sign up for a Spotify account and return.\n')
+                return False
 
+def get_username():
+    username = input('Enter your BPM username: ')
+    try:
+        user_id = c.execute("SELECT U.id FROM User U WHERE U.username='%s'" % username).fetchone()[0]
+        return user_id
+    except:
+        print('There are no users with that username. Would you like to try again or create a new account?')
+        print('0:\tTry Again')
+        print('1:\tCreate New Account')
+        if(input() == '0'):
+            return get_username()
+        else:
+            print('Do you have a Spotify account?')
+            print('0:\tYes')
+            print('1:\tNo')
+            has_spotify = input()
+            if (has_spotify == '0'):
+                return create_username()
+            else:
+                print('Please sign up for a Spotify account and return.\n')
+                return False
 
 def create_username():
     username = input('Please enter a username for your new BPM account\n')
     try:
         c.execute('INSERT INTO User(username) VALUES (?);', (username,))
         conn.commit()
-        user_id = c.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,))
-        conn.commit()
-        return user_id.fetchone()[0]
+        user_id = c.execute('SELECT U.id FROM User U WHERE U.username=?;', (username,)).fetchone()[0]
+        return user_id
     except:
         print('That username is already taken. Please enter a different username.\n')
-        create_username()
+        return create_username()
 
 def authenticate():
 	auth_req = "https://accounts.spotify.com/authorize" + \
