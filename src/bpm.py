@@ -7,7 +7,6 @@ Created on Thu Oct 25 17:02:30 2018
 """
 from auth import welcome
 from inputs import get_length, get_genre, get_speed
-from logout import logout
 
 def main():
     if(welcome()):
@@ -15,8 +14,5 @@ def main():
 	    length = get_length()
 	    start_speed = get_speed('start')
 	    end_speed = get_speed('end')
-
-    if(input() == 'logout'):
-        logout()
 
 main()
