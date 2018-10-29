@@ -5,14 +5,14 @@ Created on Thu Oct 25 17:02:30 2018
 
 @author: mattkronengold
 """
-from welcome import welcome
+from auth import welcome
 from inputs import get_length, get_genre, get_speed
 
 def main():
-    welcome()
-    genre = get_genre()
-    length = get_length()
-    start_speed = get_speed('start')
-    end_speed = get_speed('end')
+    if(welcome()):
+	    genre = get_genre()
+	    length = get_length()
+	    start_speed = get_speed('start')
+	    end_speed = get_speed('end')
 
 main()

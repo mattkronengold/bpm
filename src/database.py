@@ -36,9 +36,9 @@ def create_credentials(db_file):
 
 if __name__ == '__main__':
 	conn = sqlite3.connect("C:\\sqlite\bpm.db")
-	# c=conn.cursor()
-	# c.execute('INSERT INTO User (username) VALUES (?);', ("katie",))
-	# rows = c.fetchall()
-	# for row in rows:
-		# print(row)
-	# conn.close()
+	c=conn.cursor()
+	c.execute('SELECT * FROM Credentials')
+	rows = c.fetchall()
+	for row in rows:
+		print(row)
+	conn.close()
