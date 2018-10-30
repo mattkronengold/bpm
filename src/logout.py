@@ -12,7 +12,7 @@ def check_input(user_input):
     '''
         Checks if a user has entered the logout keyword
     '''
-    if user_input == 'logout':
+    if user_input == "logout":
         logout()
 
 def logout():
@@ -23,7 +23,9 @@ def logout():
         # get current user
         user_id = c.execute('SELECT C.user_id FROM Credentials C').fetchone()
         if user_id:
-            return user_id[0]
+            user_id = user_id[0]
+        else:
+            raise ValueError
         # remove from credentials table
         c.execute('DELETE FROM Credentials WHERE user_id = ?;', (user_id,))
         conn.commit()
