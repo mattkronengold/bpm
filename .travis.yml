@@ -1,3 +1,4 @@
+if: sender != "Deployment Bot"
 language: python
 python:
   - "3.6"
@@ -9,25 +10,16 @@ notifications:
     - kjp2157@columbia.edu
     - tio2001@columbia.edu
     - mak2265@columbia.edu
-stages:
-  - name: tests
-  if: sender != "Deployment Bot (from Travis CI)"
-  - name: deploy
-  if: sender != "Deployment Bot (from Travis CI)"
-jobs:
-  include:
-    - stage: tests
-    script:
-      - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
-      - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
-      - pylint src --rcfile=pylint_settings.rc 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
-      - pytest 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
-    -stage: deploy
-    deploy:
-      provider: pages
-      skip-cleanup: true
-      github-token: $GITHUB_TOKEN
-      keep-history: true
-      target-branch: master
-      on:
-        branch: master
+script:
+  - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
+  - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+  - pylint src --rcfile=pylint_settings.rc 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
+  - pytest 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  target-branch: master
+  on:
+    branch: master
