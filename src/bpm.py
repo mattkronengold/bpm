@@ -5,6 +5,7 @@ Created on Thu Oct 25 17:02:30 2018
 
 @author: mattkronengold
 """
+from __future__ import print_function
 import auth
 from inputs import get_length, get_genre, get_speed
 from generation import run_gen

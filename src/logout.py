@@ -1,3 +1,7 @@
+'''
+    @author: alanaanderson
+'''
+from __future__ import print_function
 import sys
 import sqlite3
 
@@ -5,16 +9,17 @@ conn = sqlite3.connect("bpm.db")
 c = conn.cursor()
 
 def logout():
+    '''
+        Removes user from Credentials table to log out that user.
+    '''
     try:
         # get current user
-        user_id = c.execute('SELECT C.user_id FROM Credentials C').fetchone()[0] 
+        user_id = c.execute('SELECT C.user_id FROM Credentials C').fetchone()[0]
         # remove from credentials table
         c.execute('DELETE FROM Credentials WHERE user_id = ?;', (user_id,))
         conn.commit()
         # exit program
         sys.exit(0)
-    except:
+    except ValueError:
         print('There are no users logged into the system')
-
-
-logout()
+        

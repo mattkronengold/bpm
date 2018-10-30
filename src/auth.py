@@ -66,7 +66,7 @@ def get_username():
         user_id = C.execute("SELECT U.id FROM User U WHERE U.username='%s'" \
             % username).fetchone()[0]
         return user_id
-    except:
+    except ValueError:
         print('There are no users with that username. \
             Would you like to try again or create a new account?')
         print('0:\tTry Again')
@@ -95,7 +95,7 @@ def create_username():
         user_id = C.execute('SELECT U.id FROM User U WHERE U.username=?;', \
             (username,)).fetchone()[0]
         return user_id
-    except:
+    except ValueError:
         print('That username is already taken. Please enter a different username.\n')
         return create_username()
 
@@ -120,6 +120,9 @@ def get_code(user_id):
     finish_auth(user_id, auth_code)
 
 def finish_auth(user_id, auth_code):
+    '''
+        Adds user authentication tokens to Credentials.
+    '''
     resp = requests.post("https://accounts.spotify.com/api/token",
                          data={"grant_type": "authorization_code",
                                "redirect_uri": REDIRECT_URI,
@@ -137,6 +140,9 @@ def finish_auth(user_id, auth_code):
     CONN.commit()
 
 def get_current_user_token():
+    '''
+        Retrieves current user's access token.
+    '''
     local_conn = sqlite3.connect("bpm.db")
     c = local_conn.cursor()
     access_token = c.execute('SELECT C.access_token FROM Credentials C').fetchone()[0]

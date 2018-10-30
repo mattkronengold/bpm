@@ -5,6 +5,7 @@ Created on Mon Oct 29 16:47:54 2018
 
 @author: mattkronengold
 """
+from __future__ import print_function
 from collections import defaultdict
 import spotipy
 
