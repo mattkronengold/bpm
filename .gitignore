@@ -99,6 +99,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+BPM/
 
 # Spyder project settings
 .spyderproject
