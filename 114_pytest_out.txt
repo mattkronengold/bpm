@@ -14,4 +14,4 @@ inputs.py:7: in <module>
     from logout import check_input
 E   ModuleNotFoundError: No module named 'logout'
 !!!!!!!!!!!!!!!!!!! Interrupted: 1 errors during collection !!!!!!!!!!!!!!!!!!!!
-=========================== 1 error in 0.18 seconds ============================
+=========================== 1 error in 0.17 seconds ============================
