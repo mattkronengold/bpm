@@ -1,3 +1,5 @@
+if:
+  sender != traviscibot
 language: python
 python:
   - "3.6"
@@ -19,7 +21,5 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  target-branch: travis-ci-output
-  local-dir: travis_ci_output
   on:
     branch: master
