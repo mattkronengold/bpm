@@ -4,6 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
 script:
+  - pwd
   - pylint src --rcfile=pylint_settings.rc
   - pytest
 notifications:
