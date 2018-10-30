@@ -4,8 +4,8 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - pylint src --rcfile=pylint_settings.rc
-  - pytest
+  - pylint src --rcfile=pylint_settings.rc > CI_test_results/$(TRAVIS_BUILD_NUMBER)_pylint_results.txt
+  - pytest > CI_test_results/$(TRAVIS_BUILD_NUMBER)_pytest_results.txt
 notifications:
   email:
     - afa2132@columbia.edu
