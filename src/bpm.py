@@ -23,7 +23,6 @@ def main():
         end_speed = get_speed('end')
         print()
 
-
         token = auth.get_current_user_token()
 
         playlist = run_gen(token, genre, length, start_speed, end_speed)
@@ -32,5 +31,7 @@ def main():
         print("Your generated playlist is:")
         print(names)
         print()
+
+        #create_playlist(token, ids)
 
 main()

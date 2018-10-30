@@ -17,7 +17,9 @@ CLIENT_ID = '482102fb45cb45fdb465ef73801f4665'
 CLIENT_SECRET = 'dc7269e0e5a84e71b9b27f857055b41f'
 REDIRECT_URI = 'https://localhost/'
 SCOPES = 'user-library-modify user-library-read user-read-playback-state \
-user-read-currently-playing user-modify-playback-state user-read-recently-played'
+user-read-currently-playing user-modify-playback-state user-read-recently-played \
+playlist-read-private playlist-modify-public playlist-modify-private \
+playlist-read-collaborative'
 
 def welcome():
     '''
