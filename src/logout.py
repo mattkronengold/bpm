@@ -21,7 +21,9 @@ def logout():
     '''
     try:
         # get current user
-        user_id = c.execute('SELECT C.user_id FROM Credentials C').fetchone()[0]
+        user_id = c.execute('SELECT C.user_id FROM Credentials C').fetchone()
+        if user_id:
+            return user_id[0]
         # remove from credentials table
         c.execute('DELETE FROM Credentials WHERE user_id = ?;', (user_id,))
         conn.commit()

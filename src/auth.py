@@ -7,7 +7,7 @@ from __future__ import print_function
 import sqlite3
 import webbrowser
 import requests
-# from logout import check_input
+from logout import check_input
 
 
 CONN = sqlite3.connect("bpm.db")
@@ -33,7 +33,7 @@ def welcome():
         print('0:\tYes')
         print('1:\tNo')
         has_account = input()
-        # check_input(has_account)
+        check_input(has_account)
         if has_account == '0':
             user_id = get_username()
             if user_id:
@@ -48,7 +48,7 @@ def welcome():
             print('0:\tYes')
             print('1:\tNo')
             has_spotify = input()
-            # check_input(has_spotify)
+            check_input(has_spotify)
             if has_spotify == '0':
                 user_id = create_username()
                 authenticate()
@@ -64,7 +64,7 @@ def get_username():
         Checks for existing BPM users.
     '''
     username = input('Enter your BPM username: ')
-    # check_input(username)
+    check_input(username)
     try:
         user_id = C.execute("SELECT U.id FROM User U WHERE U.username='%s'" \
             % username).fetchone()
@@ -85,7 +85,7 @@ def get_username():
             print('0:\tYes')
             print('1:\tNo')
             has_spotify = input()
-            # check_input(has_spotify)
+            check_input(has_spotify)
             if has_spotify == '0':
                 return create_username()
             else:
@@ -97,6 +97,7 @@ def create_username():
         Creates new BPM user.
     '''
     username = input('Please enter a username for your new BPM account\n')
+    check_input(username)
     try:
         C.execute('INSERT INTO User(username) VALUES (?);', (username,))
         CONN.commit()
@@ -125,7 +126,7 @@ def get_code(user_id):
     '''
     print("Please copy and paste your validation code from the browser: ")
     auth_code = input()
-    # check_input(auth_code)
+    check_input(auth_code)
     finish_auth(user_id, auth_code)
 
 def finish_auth(user_id, auth_code):
