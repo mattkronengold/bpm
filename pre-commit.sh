@@ -4,7 +4,8 @@
 pylint src --rcfile=pylint_settings.rc
 RESULT1=$?
 
-pytest
+cd src
+python3 -m pytest
 RESULT2=$?
 
 if [ $RESULT1 -ne 0 ] || [ $RESULT2 -ne 0 ]

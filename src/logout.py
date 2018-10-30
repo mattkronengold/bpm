@@ -5,9 +5,6 @@ from __future__ import print_function
 import sys
 import sqlite3
 
-conn = sqlite3.connect("bpm.db")
-c = conn.cursor()
-
 def check_input(user_input):
     '''
         Checks if a user has entered the logout keyword
@@ -20,6 +17,9 @@ def logout():
         Removes user from Credentials table to log out that user.
     '''
     try:
+        conn = sqlite3.connect("bpm.db")
+        c = conn.cursor()
+
         # get current user
         user_id = c.execute('SELECT C.user_id FROM Credentials C').fetchone()
         if user_id:
