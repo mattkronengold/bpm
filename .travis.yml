@@ -1,4 +1,7 @@
 if: sender != "Deployment Bot (from Travis CI)"
+stages:
+  - name: deploy
+    if: sender != "Deployment Bot (from Travis CI)"
 language: python
 python:
   - "3.6"
