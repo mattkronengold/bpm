@@ -5,6 +5,7 @@ __pycache__/
 
 # Temp files
 *.py~
+*.py.un~
 
 # Mac files
 .DS_Store
