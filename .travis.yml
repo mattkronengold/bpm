@@ -4,9 +4,10 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - ls
-  - pylint src --rcfile=pylint_settings.rc 2>&1 | tee ./travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
-  - pytest 2>&1 | ./travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+  - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
+  - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+  - pylint src --rcfile=pylint_settings.rc 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
+  - pytest 2>&1 | travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
 notifications:
   email:
     - afa2132@columbia.edu
