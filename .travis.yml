@@ -4,9 +4,8 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - pwd
-  - pylint src --rcfile=pylint_settings.rc
-  - pytest
+  - pylint src --rcfile=pylint_settings.rc 2>&1 | tee pylint_out.txt
+  - pytest 2>&1 | tee pylint_out.txt
 notifications:
   email:
     - afa2132@columbia.edu
