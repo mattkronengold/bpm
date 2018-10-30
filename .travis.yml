@@ -14,5 +14,12 @@ script:
   - touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
   - pylint src --rcfile=pylint_settings.rc 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
   - pytest 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
-after-succes:
-  - bash travis_push.sh
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  keep-history: true
+  local-dir: travis_ci_output
+  target-branch: travis_ci_output
+  on:
+    branch: master
