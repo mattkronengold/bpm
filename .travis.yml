@@ -6,6 +6,8 @@ install:
 script:
   - pylint src --rcfile=pylint_settings.rc 2>&1 | tee pylint_out.txt
   - pytest 2>&1 | tee pylint_out.txt
+  - git commit -a -m "Upload CI output"
+  - git push
 notifications:
   email:
     - afa2132@columbia.edu
