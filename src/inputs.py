@@ -4,7 +4,7 @@
 
 '''
 from __future__ import print_function
-from logout import check_input
+from src.logout import check_input
 
 def get_length():
     '''
