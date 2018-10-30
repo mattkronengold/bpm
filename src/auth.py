@@ -67,8 +67,12 @@ def get_username():
     # check_input(username)
     try:
         user_id = C.execute("SELECT U.id FROM User U WHERE U.username='%s'" \
-            % username).fetchone()[0]
-        return user_id
+            % username).fetchone()
+        if user_id:
+            return user_id[0]
+        else:
+            print('There are no users with that username.')
+            return create_username()
     except ValueError:
         print('There are no users with that username. \
             Would you like to try again or create a new account?')
