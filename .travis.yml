@@ -19,6 +19,6 @@ deploy:
   skip-cleanup: true
   github-token: $GITHUB_TOKEN
   keep-history: true
-  target_branch: master
+  target_branch: travis-ci-output
   on:
     branch: master
