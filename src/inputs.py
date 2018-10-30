@@ -4,12 +4,14 @@
 
 '''
 from __future__ import print_function
+from logout import check_input
 
 def get_length():
     '''
     	Gets length of playlist from user.
     '''
     length = input('Enter the length of your workout in minutes: \n')
+    check_input(length)
     try:
         length = int(length)
         if length in range(5, 91):
@@ -34,6 +36,7 @@ def get_genre():
 				  '5: \t Latin \n' \
 				  '6: \t Country \n' \
 				  '7: \t R&B \n')
+    check_input(genre)
     try:
         genre = int(genre)
         if genre in range(0, 8):
@@ -52,6 +55,7 @@ def get_speed(start_or_end):
     '''
     speed = input('Enter the ' + start_or_end + \
         ' speed of your workout in steps per minute (SPM): \n')
+    check_input(speed)
     try:
         speed = int(speed)
         if speed in range(50, 301):

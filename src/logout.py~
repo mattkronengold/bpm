@@ -9,10 +9,7 @@ conn = sqlite3.connect("bpm.db")
 c = conn.cursor()
 
 def check_input(user_input):
-    '''
-        Checks if a user has entered the logout keyword
-    '''
-    if user_input == 'logout':
+    if (user_input == 'logout'):
         logout()
 
 def logout():
@@ -29,3 +26,4 @@ def logout():
         sys.exit(0)
     except ValueError:
         print('There are no users logged into the system')
+        
