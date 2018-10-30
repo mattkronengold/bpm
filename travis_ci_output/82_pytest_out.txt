@@ -1,8 +1,0 @@
-============================= test session starts ==============================
-platform linux -- Python 3.6.3, pytest-3.3.0, py-1.5.2, pluggy-0.6.0
-rootdir: /home/travis/build/mattkronengold/bpm, inifile:
-collected 1 item
-
-tests/test_bpm.py .                                                      [100%]
-
-=========================== 1 passed in 0.04 seconds ===========================
