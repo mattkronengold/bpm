@@ -5,8 +5,9 @@ pylint src --rcfile=pylint_settings.rc
 RESULT1=$?
 
 cd src
-python3 -m pytest
+coverage run -m pytest
 RESULT2=$?
+coverage report
 
 if [ $RESULT1 -ne 0 ] || [ $RESULT2 -ne 0 ]
 then
