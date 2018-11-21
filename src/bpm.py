@@ -9,6 +9,7 @@ from __future__ import print_function
 import auth
 from inputs import get_length, get_genre, get_speed
 from generation import run_gen
+from review import start_review
 
 def main():
     """Run BPM application"""
@@ -31,6 +32,8 @@ def main():
         print("Your generated playlist is:")
         print(names)
         print()
+
+        start_review()
 
         #create_playlist(token, ids)
 
