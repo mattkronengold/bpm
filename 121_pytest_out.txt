@@ -6,4 +6,4 @@ collected 4 items
 test_database.py .                                                       [ 25%]
 test_inputs.py ...                                                       [100%]
 
-=========================== 4 passed in 0.07 seconds ===========================
+=========================== 4 passed in 0.08 seconds ===========================
