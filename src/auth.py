@@ -6,7 +6,7 @@
 from __future__ import print_function
 import sqlite3
 import webbrowser
-import requests
+from spotipy import oauth2
 from logout import check_input
 
 
@@ -27,11 +27,11 @@ def welcome():
     '''
     login_result = C.execute('SELECT COUNT(*) FROM Credentials').fetchone()[0]
     if login_result == 1:
-        print('Welcome back to BPM!')
+        print('Welcome back to BPM!\n')
         return True
     else:
-        print('Welcome to BPM!')
-        print('Do you have a BPM account?')
+        print('\nWelcome to BPM!')
+        print('\nDo you have a BPM account?')
         print('0:\tYes')
         print('1:\tNo')
         has_account = input()
@@ -39,33 +39,39 @@ def welcome():
         if has_account == '0':
             user_id = get_username()
             if user_id:
-                authenticate()
-                get_code(user_id)
+
+                auth = oauth2.SpotifyOAuth(CLIENT_ID, CLIENT_SECRET,
+                                           REDIRECT_URI, scope=SCOPES)
+                authenticate(auth)
+                get_code(auth, user_id)
                 CONN.close()
                 return True
             else:
                 return False
         else:
-            print('Do you have a Spotify account?')
+            print('\nDo you have a Spotify account?')
             print('0:\tYes')
             print('1:\tNo')
             has_spotify = input()
             check_input(has_spotify)
             if has_spotify == '0':
+
+                auth = oauth2.SpotifyOAuth(CLIENT_ID, CLIENT_SECRET,
+                                           REDIRECT_URI, scope=SCOPES)
                 user_id = create_username()
-                authenticate()
-                get_code(user_id)
+                authenticate(auth)
+                get_code(auth, user_id)
                 CONN.close()
                 return True
             else:
-                print('Please sign up for a Spotify account and return.\n')
+                print('\nPlease sign up for a Spotify account and return.\n')
                 return False
 
 def get_username():
     '''
         Checks for existing BPM users.
     '''
-    username = input('Enter your BPM username: ')
+    username = input('\nEnter your BPM username: ')
     check_input(username)
     try:
         user_id = C.execute("SELECT U.id FROM User U WHERE U.username='%s'" \
@@ -73,17 +79,17 @@ def get_username():
         if user_id:
             return user_id[0]
         else:
-            print('There are no users with that username.')
+            print('\nThere are no users with that username.')
             return create_username()
     except ValueError:
-        print('There are no users with that username. \
+        print('\nThere are no users with that username. \
             Would you like to try again or create a new account?')
         print('0:\tTry Again')
         print('1:\tCreate New Account')
         if input() == '0':
             return get_username()
         else:
-            print('Do you have a Spotify account?')
+            print('\nDo you have a Spotify account?')
             print('0:\tYes')
             print('1:\tNo')
             has_spotify = input()
@@ -98,7 +104,7 @@ def create_username():
     '''
         Creates new BPM user.
     '''
-    username = input('Please enter a username for your new BPM account\n')
+    username = input('\nPlease enter a username for your new BPM account:\n')
     check_input(username)
     try:
         C.execute('INSERT INTO User(username) VALUES (?);', (username,))
@@ -107,45 +113,32 @@ def create_username():
             (username,)).fetchone()[0]
         return user_id
     except ValueError:
-        print('That username is already taken. Please enter a different username.\n')
+        print('\nThat username is already taken. Please enter a different username.\n')
         return create_username()
 
-def authenticate():
+def authenticate(auth):
     '''
         Authenticates current user with the BPM app in Spotify.
     '''
-    auth_req = "https://accounts.spotify.com/authorize" + \
-	"?redirect_uri=" + REDIRECT_URI + \
-	"&scope=" + SCOPES + \
-	"&client_id=" + CLIENT_ID + \
-	"&response_type=code"
-    auth_req.replace(":", "%3A").replace("/", "%2F").replace(" ", "+")
-    webbrowser.open(auth_req)
+    webbrowser.open(auth.get_authorize_url())
 
-def get_code(user_id):
+def get_code(auth, user_id):
     '''
         Prompts user to enter validation code that they are redirected to.
     '''
-    print("Please copy and paste your validation code from the browser: ")
+    print("\nPlease copy and paste your validation code from the browser: ")
     auth_code = input()
     check_input(auth_code)
-    finish_auth(user_id, auth_code)
+    finish_auth(auth, user_id, auth_code)
 
-def finish_auth(user_id, auth_code):
+def finish_auth(auth, user_id, auth_code):
     '''
         Adds user authentication tokens to Credentials.
     '''
-    resp = requests.post("https://accounts.spotify.com/api/token",
-                         data={"grant_type": "authorization_code",
-                               "redirect_uri": REDIRECT_URI,
-                               "code": auth_code},
-                         auth=(CLIENT_ID, CLIENT_SECRET))
-    resp.raise_for_status()
-    resp_json = resp.json()
-
-    access_token = resp_json["access_token"]
-    refresh_token = resp_json["refresh_token"]
-    expires_in = resp_json["expires_in"]
+    response = auth.get_access_token(auth_code)
+    access_token = response["access_token"]
+    refresh_token = response["refresh_token"]
+    expires_in = response["expires_in"]
 
     C.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_in) \
         VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_in))
