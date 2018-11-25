@@ -151,4 +151,4 @@ def run_gen(token, genre, length, start_speed, end_speed):
     library = scan_library(spotify, genre, start_speed, end_speed)
     playlist = gen_playlist(library, length)
 
-    return playlist
+    return {"library": library, "playlist": playlist}

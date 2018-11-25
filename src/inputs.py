@@ -66,3 +66,18 @@ def get_speed(start_or_end):
     except ValueError:
         print('Please enter a speed between 50-300 SPM')
         return get_speed(start_or_end)
+
+def get_inputs():
+    '''
+        Gets inputs for playlist.
+    '''
+    genre = get_genre()
+    print()
+    length = get_length()
+    print()
+    start_speed = get_speed('start')
+    print()
+    end_speed = get_speed('end')
+    print()
+
+    return {"genre": genre, "length": length, "end_speed": end_speed, "start_speed": start_speed}
