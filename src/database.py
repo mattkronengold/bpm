@@ -34,7 +34,7 @@ def create_credentials(db_file):
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute('''CREATE TABLE Credentials (user_id integer PRIMARY KEY, \
-        access_token text, refresh_token text, expires_in text, last_refreshed \
+        access_token text, refresh_token text, expires_at integer, last_refreshed \
         TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES User (id))''')
     except Error as e:
         print(e)

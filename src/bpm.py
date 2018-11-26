@@ -12,25 +12,29 @@ from generation import run_gen
 from review import start_review, save_playlist
 
 def main():
-    """Run BPM application"""
+    """
+        Run BPM application
+    """
 
     if auth.welcome():
-        inputs = get_inputs()
         token = auth.get_current_user_token()
+
+        inputs = get_inputs()
+
         generation = run_gen(token, inputs["genre"], inputs["length"], \
             inputs["start_speed"], inputs["end_speed"])
         playlist = generation["playlist"]
         library = generation["library"]
         names = [track["name"] for track in playlist]
+
         print("Your generated playlist is:")
         for i, _ in enumerate(names):
             print(i, ": ", names[i])
-        print()
 
         playlist = start_review(names, library)
         save_playlist(playlist)
 
         #create_playlist(token, ids)
 
-
-main()
+if __name__ == "__main__":
+    main()
