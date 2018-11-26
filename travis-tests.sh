@@ -7,7 +7,7 @@ pylint src --rcfile=pylint_settings.rc 2>&1 | tee travis_ci_output/${TRAVIS_BUIL
 RESULT1=${PIPESTATUS[0]}
 
 cd src
-python3 -m pytest 2>&1 | tee ../travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+python3 -m pytest --cov=. 2>&1 | tee ../travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
 RESULT2=${PIPESTATUS[0]}
 
 cd ..
