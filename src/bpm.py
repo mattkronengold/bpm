@@ -23,13 +23,17 @@ def main():
 
         generation = run_gen(token, inputs["genre"], inputs["length"], \
             inputs["start_speed"], inputs["end_speed"])
+
         playlist = generation["playlist"]
         library = generation["library"]
         names = [track["name"] for track in playlist]
 
         print("Your generated playlist is:")
-        for i, _ in enumerate(names):
-            print(i, ": ", names[i])
+
+        i = 1
+        for track in playlist:
+            print(i, ": ", track['name'] + " (" + str(track['bpm']) + " BPM)")
+            i += 1
 
         playlist = start_review(names, library)
         save_playlist(playlist)
