@@ -11,13 +11,16 @@ def create_playlist(token, tracks):
     spotify = spotipy.Spotify(auth=token)
     user = spotify.current_user()
     user_id = user["id"]
-    print(user_id)
+
+    final_song_list = []
+    for track in tracks:
+        final_song_list.append(track["tid"])
 
     name = input('Enter a name for your new playlist!\n')
-    print()
 
     playlist = spotify.user_playlist_create(user_id, name)
-    print("Playlist generated with name: " + name)
+    playlist_id = playlist['id']
 
-    spotify.user_playlist_add_tracks(user_id, playlist, tracks)
+    for song in final_song_list:
+        spotify.user_playlist_add_tracks(user_id, playlist_id=playlist_id, tracks=[song])
     print("Added tracks to playlist!")
