@@ -15,14 +15,14 @@ auth.py                133    133     0%
 bpm.py                  23     23     0%
 create_playlist.py      13     13     0%
 database.py             25      6    76%
-generation.py           84     84     0%
+generation.py           86     86     0%
 inputs.py               49     24    51%
 logout.py               19     13    32%
 review.py               54     54     0%
 test_database.py        20      2    90%
 test_inputs.py          23      0   100%
 ----------------------------------------
-TOTAL                  443    352    21%
+TOTAL                  445    354    20%
 
 
-=========================== 4 passed in 0.15 seconds ===========================
+=========================== 4 passed in 0.14 seconds ===========================
