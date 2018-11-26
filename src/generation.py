@@ -10,7 +10,8 @@ from collections import defaultdict
 import random
 import spotipy
 
-GENRES = {1: "rock",
+GENRES = {0: "any",
+          1: "rock",
           2: "rap",
           3: "pop",
           4: "edm",
@@ -37,6 +38,9 @@ def get_genres(spotify, track):
 
 def has_genre(spotify, track, genre):
     """Returns true if track satisfies the given genre code"""
+
+    if genre == 0:
+        return True
 
     track_genres = get_genres(spotify, track)
     target_genre = GENRES[genre]
