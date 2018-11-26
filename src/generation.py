@@ -7,8 +7,8 @@ Created on Mon Oct 29 16:47:54 2018
 """
 from __future__ import print_function
 from collections import defaultdict
-import spotipy
 import random
+import spotipy
 
 GENRES = {1: "rock",
           2: "rap",
