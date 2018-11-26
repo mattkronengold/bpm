@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # pre-commit.sh
-#pylint src --rcfile=pylint_settings.rc
-#RESULT1=$?
+pylint src --rcfile=pylint_settings.rc
+RESULT1=$?
 
 cd src
 python3 -m pytest --cov=.
