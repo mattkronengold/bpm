@@ -28,6 +28,11 @@ def main():
         print("Your generated playlist is:")
         print_playlist(playlist)
 
+        #i = 1
+        #for track in playlist:
+        #   print(i, ": ", track['name'] + " (" + str(track['bpm']) + " BPM)")
+        #    i += 1
+
         playlist = start_review(playlist, library)
         save_playlist(playlist)
 

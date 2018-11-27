@@ -7,9 +7,11 @@ Created on Mon Oct 29 16:47:54 2018
 """
 from __future__ import print_function
 from collections import defaultdict
+import random
 import spotipy
 
-GENRES = {1: "rock",
+GENRES = {0: "any",
+          1: "rock",
           2: "rap",
           3: "pop",
           4: "edm",
@@ -37,6 +39,9 @@ def get_genres(spotify, track):
 def has_genre(spotify, track, genre):
     """Returns true if track satisfies the given genre code"""
 
+    if genre == 0:
+        return True
+
     track_genres = get_genres(spotify, track)
     target_genre = GENRES[genre]
 
@@ -46,7 +51,7 @@ def has_genre(spotify, track, genre):
 
     return False
 
-def scan_library(spotify, genre, start_speed, end_speed):
+def scan_library(spotify, genre, start_speed, end_speed, reverse):
     """Scan library for potential songs"""
 
     print("Scanning library")
@@ -73,12 +78,17 @@ def scan_library(spotify, genre, start_speed, end_speed):
             # Round to 10's place
             bpm = round(bpm/10) * 10
 
-            if bpm < start_speed or bpm > end_speed:
-                continue
+            if reverse:
+                if bpm > start_speed or bpm < end_speed:
+                    continue
+            else:
+                if bpm < start_speed or bpm > end_speed:
+                    continue
 
             library[bpm].append({"tid": tid,
                                  "name": name,
-                                 "duration": duration})
+                                 "duration": duration,
+                                 "bpm": bpm})
 
         if not results["next"]:
             break
@@ -88,7 +98,7 @@ def scan_library(spotify, genre, start_speed, end_speed):
     print("Library scanned\n")
     return library
 
-def gen_playlist(library, length):
+def gen_playlist(library, length, reverse):
     """Generates a playlist from given inputs
 
     Argument legnth should be in ms
@@ -97,7 +107,7 @@ def gen_playlist(library, length):
     print("Generating playlist")
 
     all_speeds = list(library.keys())
-    all_speeds.sort()
+    all_speeds.sort(reverse=reverse)
 
     playlist = defaultdict(list)
 
@@ -109,6 +119,7 @@ def gen_playlist(library, length):
         for speed in all_speeds:
 
             tracks = library[speed]
+            random.shuffle(tracks)
 
             if not tracks:
                 all_speeds.remove(speed)
@@ -148,8 +159,10 @@ def run_gen(token, genre, length, start_speed, end_speed):
     # Convert to ms
     length = length * 60000
 
-    library = scan_library(spotify, genre, start_speed, end_speed)
-    playlist = gen_playlist(library, length)
+    reverse = start_speed > end_speed
+
+    library = scan_library(spotify, genre, start_speed, end_speed, reverse)
+    playlist = gen_playlist(library, length, reverse)
 
     return {"library": library, "playlist": playlist}
 

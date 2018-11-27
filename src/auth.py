@@ -210,7 +210,7 @@ def get_current_user_token():
     expires_at = lc.execute('SELECT C.expires_at FROM Credentials C').fetchone()[0]
 
     # Refresh if token expires in next 30 minutes
-    if expires_at > (time.time() - 30):
+    if expires_at < (time.time() - 30):
         get_new_token(local_conn, lc)
 
     access_token = lc.execute('SELECT C.access_token FROM Credentials C').fetchone()[0]

@@ -2,3 +2,5 @@ spotipy
 pytest
 pylint
 mock
+coverage
+pytest-cov
