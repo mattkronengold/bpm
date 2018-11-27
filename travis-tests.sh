@@ -11,6 +11,8 @@ RESULT=${PIPESTATUS[0]}
 
 cd ..
 
+git config --global user.email "travis@travis-ci.org"
+git config --global user.name "Travis CI"
 git checkout travis_ci_output
 git add *.txt
 git push
