@@ -13,9 +13,11 @@ cd ..
 
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
-git checkout travis_ci_output
-git add *.txt
-git push
+
+git checkout -b travis_ci_output
+git pull
+#git add *.txt
+#git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
 
 if [ $RESULT -ne 0 ]
 then
