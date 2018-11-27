@@ -19,12 +19,12 @@ database.py             25      6    76%
 generation.py           90     90     0%
 inputs.py               49      9    82%
 logout.py               19      4    79%
-review.py               61     61     0%
+review.py               71     71     0%
 test_database.py        21      2    90%
 test_inputs.py          82      0   100%
 test_logout.py          41      0   100%
 ----------------------------------------
-TOTAL                  554    338    39%
+TOTAL                  564    348    38%
 
 
-========================== 13 passed in 0.19 seconds ===========================
+========================== 13 passed in 0.18 seconds ===========================
