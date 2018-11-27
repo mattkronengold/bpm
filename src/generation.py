@@ -152,3 +152,24 @@ def run_gen(token, genre, length, start_speed, end_speed):
     playlist = gen_playlist(library, length)
 
     return {"library": library, "playlist": playlist}
+
+def print_playlist(playlist):
+    """
+        Print formatted playlist.
+    """
+    for i, _ in enumerate(playlist):
+        output = str(i) + ": " + playlist[i].get("name")
+        print(output)
+    print()
+
+def generate_playlist(token, inputs):
+    """
+        Generate playlist and return library
+        and names of songs in playlist.
+    """
+    generation = run_gen(token, inputs["genre"], inputs["length"], \
+            inputs["start_speed"], inputs["end_speed"])
+    playlist = generation["playlist"]
+    library = generation["library"]
+    names = [track["name"] for track in playlist]
+    return {"playlist": playlist, "names": names, "library": library}

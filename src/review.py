@@ -6,9 +6,9 @@
 from logout import check_input
 from inputs import get_inputs
 from auth import get_current_user_token
-from generation import run_gen
+from generation import generate_playlist, print_playlist
 
-def start_review(names, library):
+def start_review(playlist, library):
     '''
         Checks if user wants to make any changes to the playlist
     '''
@@ -17,55 +17,57 @@ def start_review(names, library):
     print('1:\tYes, I want to change the parameters')
     print('2:\tNo, I like it the way it is')
     resp = input()
+    print()
     check_input(resp)
     if resp == '0':
-        song_index = int(input('Please enter the number of the song you want to swap:\n'))
-        song_name = names[song_index]
+        song_index = input('Please enter the number of the song you want to swap:\n')
+        print()
+        check_input(song_index)
+        song_index = int(song_index)
+        song_dict = playlist[song_index]
         for k in library:
             if library[k]:
                 song = library[k][0]
-                names[song_index] = song["name"]
+                playlist[song_index] = song
                 library[k].remove(song)
                 print("Your new playlist is:")
-                for i, _ in enumerate(names):
-                    print(i, ": ", names[i])
-                print()
+                print_playlist(playlist)
                 break
             else:
-                option = input("There are not enough songs in your library. \
-                    Would you like to: \n 0: forcibly remove the song (your playlist length will be altered) \n \
-                    1: keep the current playlist \n")
+                print("There are not enough songs in your library.")
+                print("Would you like to: ")
+                print("0: forcibly remove the song (your playlist length will be altered)")
+                print("1: keep the current playlist")
+                option = input()
+                print()
+                check_input(option)
                 if option == '0':
-                    names.remove(song_name)
+                    playlist.remove(song_dict)
                     print("Your new playlist is:")
-                    for i, _ in enumerate(names):
-                        print(i, ": ", names[i])
-                        print()
-                    return start_review(names, library)
+                    print_playlist(playlist)
+                    return start_review(playlist, library)
                 else:
                     print("Your playlist is:")
-                    for i, _ in enumerate(names):
-                        print(i, ": ", names[i])
-                    print()
-                    return start_review(names, library)
-        return start_review(names, library)
-    if resp == '1':
+                    print_playlist(playlist)
+                    return start_review(playlist, library)
+        return start_review(playlist, library)
+    elif resp == '1':
         inputs = get_inputs()
         token = get_current_user_token()
-        generation = run_gen(token, inputs["genre"], inputs["length"],\
-            inputs["start_speed"], inputs["end_speed"])
-        playlist = generation["playlist"]
-        library = generation["library"]
-        names = [track["name"] for track in playlist]
 
-        print("Your generated playlist is:")
-        for i, _ in enumerate(names):
-            print(i, ": ", names[i])
-        print()
-        return start_review(names, library)
-    if resp == '2':
+        generation = generate_playlist(token, inputs)
+        library = generation["library"]
+        playlist = generation["playlist"]
+
+        print("Your generated playlist is: ")
+        print_playlist(playlist)
+        return start_review(playlist, library)
+    elif resp == '2':
         # return playlist to save
-        return names
+        return playlist
+    else:
+        print("Please enter a valid input.")
+        return start_review(playlist, library)
 
 def save_playlist(playlist):
     '''
