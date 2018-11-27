@@ -10,14 +10,14 @@ def check_input(user_input):
         Checks if a user has entered the logout keyword
     '''
     if user_input == "logout":
-        logout()
+        logout('bpm.db')
 
-def logout():
+def logout(db_file):
     '''
         Removes user from Credentials table to log out that user.
     '''
     try:
-        conn = sqlite3.connect("bpm.db")
+        conn = sqlite3.connect(db_file)
         c = conn.cursor()
 
         # get current user

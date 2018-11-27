@@ -29,6 +29,8 @@ def test_databases():
         creds_table_exists = c.execute("SELECT count(*) from \
             sqlite_master WHERE type='table' AND name='credentials'").fetchone()
         assert creds_table_exists
+
+        os.remove('bpm_t.db')
     except Error as e:
         print(e)
     finally:
