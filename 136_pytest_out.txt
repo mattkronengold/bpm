@@ -2,10 +2,11 @@
 platform linux -- Python 3.6.3, pytest-3.3.0, py-1.5.2, pluggy-0.6.0
 rootdir: /home/travis/build/mattkronengold/bpm/src, inifile:
 plugins: cov-2.6.0
-collected 10 items
+collected 13 items
 
-test_database.py .                                                       [ 10%]
-test_inputs.py .........                                                 [100%]
+test_database.py .                                                       [  7%]
+test_inputs.py .........                                                 [ 76%]
+test_logout.py ...                                                       [100%]
 
 ----------- coverage: platform linux, python 3.6.3-final-0 -----------
 Name                 Stmts   Miss  Cover
@@ -17,12 +18,13 @@ create_playlist.py      15     15     0%
 database.py             25      6    76%
 generation.py           97     97     0%
 inputs.py               49      9    82%
-logout.py               19     13    32%
+logout.py               19      4    79%
 review.py               57     57     0%
-test_database.py        20      2    90%
+test_database.py        21      2    90%
 test_inputs.py          82      0   100%
+test_logout.py          41      0   100%
 ----------------------------------------
-TOTAL                  516    351    32%
+TOTAL                  558    342    39%
 
 
-========================== 10 passed in 0.16 seconds ===========================
+========================== 13 passed in 0.18 seconds ===========================
