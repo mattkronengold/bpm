@@ -13,7 +13,7 @@ Name                 Stmts   Miss  Cover
 __init__.py              0      0   100%
 auth.py                133    133     0%
 bpm.py                  19     19     0%
-create_playlist.py      13     13     0%
+create_playlist.py      15     15     0%
 database.py             25      6    76%
 generation.py           97     97     0%
 inputs.py               49     24    51%
@@ -22,7 +22,7 @@ review.py               57     57     0%
 test_database.py        20      2    90%
 test_inputs.py          23      0   100%
 ----------------------------------------
-TOTAL                  455    364    20%
+TOTAL                  457    366    20%
 
 
 =========================== 4 passed in 0.13 seconds ===========================
