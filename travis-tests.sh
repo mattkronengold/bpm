@@ -1,12 +1,12 @@
 #!/bin/sh
 
-touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
-touch travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+touch ${TRAVIS_BUILD_NUMBER}_pylint_out.txt
+touch ${TRAVIS_BUILD_NUMBER}_pytest_out.txt
 
-pylint src --rcfile=pylint_settings.rc 2>&1 | tee travis_ci_output/${TRAVIS_BUILD_NUMBER}_pylint_out.txt
+pylint src --rcfile=pylint_settings.rc 2>&1 | tee ${TRAVIS_BUILD_NUMBER}_pylint_out.txt
 
 cd src
-python3 -m pytest --cov=. 2>&1 | tee ../travis_ci_output/${TRAVIS_BUILD_NUMBER}_pytest_out.txt
+python3 -m pytest --cov=. 2>&1 | tee ../${TRAVIS_BUILD_NUMBER}_pytest_out.txt
 RESULT=${PIPESTATUS[0]}
 
 cd ..
