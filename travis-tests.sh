@@ -16,6 +16,7 @@ git config --global user.name "Travis CI"
 
 git checkout -b travis_ci_output
 git pull
+ls
 #git add *.txt
 #git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
 
