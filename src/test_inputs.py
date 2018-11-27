@@ -23,7 +23,9 @@ class InputTestCase(unittest.TestCase):
     def test_length(self):
         """Call length test"""
         self.length_test(5, 5)
+        self.length_test(6, 6)
         self.length_test(90, 90)
+        self.length_test(89, 89)
         self.length_test(45, 45)
 
     def length_improper_input_test(self, input_stream):
@@ -59,9 +61,10 @@ class InputTestCase(unittest.TestCase):
 
     def test_genres(self):
         """Call genre test"""
-        #input 6 is country
         self.genre_test(7, 7)
+        self.genre_test(6, 6)
         self.genre_test(0, 0)
+        self.genre_test(1, 1)
         self.genre_test(4, 4)
 
     def genre_improper_input_test(self, input_stream):
@@ -79,7 +82,7 @@ class InputTestCase(unittest.TestCase):
     def test_genre_improper_input(self):
         """Call genre improper input test"""
         self.genre_improper_input_test(['hello', 4])
-        self.genre_improper_input_test([10, 4])
+        self.genre_improper_input_test([8, 4])
         self.genre_improper_input_test([-1, 4])
 
     def genre_test_negative(self, given_answer, expected_out):
@@ -102,7 +105,9 @@ class InputTestCase(unittest.TestCase):
     def test_speed(self):
         """Call speed test"""
         self.speed_test(50, 50)
+        self.speed_test(51, 51)
         self.speed_test(300, 300)
+        self.speed_test(299, 299)
         self.speed_test(175, 175)
 
     def speed_improper_input_test(self, input_stream):

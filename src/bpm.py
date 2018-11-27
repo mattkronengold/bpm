@@ -10,6 +10,7 @@ import auth
 from inputs import get_inputs
 from generation import run_gen
 from review import start_review, print_playlist
+from create_playlist import create_playlist
 
 def main():
     """
@@ -30,7 +31,7 @@ def main():
 
         playlist = start_review(playlist, library)
 
-        #create_playlist(token, ids)
+        create_playlist(token, playlist)
 
 
 if __name__ == "__main__":
