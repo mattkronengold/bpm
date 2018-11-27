@@ -11,6 +11,10 @@ RESULT=${PIPESTATUS[0]}
 
 cd ..
 
+git checkout travis_ci_output
+git add *.txt
+git push
+
 if [ $RESULT -ne 0 ]
 then
 	echo "One or more tests failed."

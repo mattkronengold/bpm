@@ -11,12 +11,3 @@ notifications:
     - mak2265@columbia.edu
 script:
   - bash travis-tests.sh
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
-  local-dir: travis_ci_output
-  target-branch: travis_ci_output
-  on:
-    branch: master
