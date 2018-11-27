@@ -6,7 +6,7 @@
 from logout import check_input
 from inputs import get_inputs
 from auth import get_current_user_token
-from generation import generate_playlist, print_playlist
+from generation import run_gen
 
 def start_review(playlist, library):
     '''
@@ -55,7 +55,7 @@ def start_review(playlist, library):
         inputs = get_inputs()
         token = get_current_user_token()
 
-        generation = generate_playlist(token, inputs)
+        generation = run_gen(token, inputs)
         library = generation["library"]
         playlist = generation["playlist"]
 
@@ -69,8 +69,12 @@ def start_review(playlist, library):
         print("Please enter a valid input.")
         return start_review(playlist, library)
 
-def save_playlist(playlist):
-    '''
-        Save playlist to Spotify.
-    '''
-    return playlist
+def print_playlist(playlist):
+    """
+        Print formatted playlist.
+    """
+    i = 1
+    for track in playlist:
+        print(i, ": ", track['name'] + " (" + str(track['bpm']) + " BPM)")
+        i += 1
+    print()
