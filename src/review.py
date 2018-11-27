@@ -20,36 +20,35 @@ def start_review(playlist, library):
     print()
     check_input(resp)
     if resp == '0':
-        song_index = input('Please enter the number of the song you want to swap:\n')
-        print()
-        check_input(song_index)
-        song_index = int(song_index)
+        song_index = get_song_index()
+        while song_index not in range(len(playlist)):
+            print("Please enter a valid input.")
+            song_index = get_song_index()
+
         song_dict = playlist[song_index]
-        for k in library:
-            if library[k]:
-                song = library[k][0]
-                playlist[song_index] = song
-                library[k].remove(song)
+        song_bpm = song_dict["bpm"]
+        first_key = list(library.keys())[0]
+        if library[song_bpm]:
+            swap_song(playlist, library, song_bpm, song_index)
+        elif library[first_key]:
+            swap_song(playlist, library, first_key, song_index)
+        else:
+            print("There are not enough songs in your library.")
+            print("Would you like to: ")
+            print("0: forcibly remove the song (your playlist length will be altered)")
+            print("1: keep the current playlist")
+            option = input()
+            print()
+            check_input(option)
+            if option == '0':
+                playlist.remove(song_dict)
                 print("Your new playlist is:")
                 print_playlist(playlist)
-                break
+                return start_review(playlist, library)
             else:
-                print("There are not enough songs in your library.")
-                print("Would you like to: ")
-                print("0: forcibly remove the song (your playlist length will be altered)")
-                print("1: keep the current playlist")
-                option = input()
-                print()
-                check_input(option)
-                if option == '0':
-                    playlist.remove(song_dict)
-                    print("Your new playlist is:")
-                    print_playlist(playlist)
-                    return start_review(playlist, library)
-                else:
-                    print("Your playlist is:")
-                    print_playlist(playlist)
-                    return start_review(playlist, library)
+                print("Your playlist is:")
+                print_playlist(playlist)
+                return start_review(playlist, library)
         return start_review(playlist, library)
     elif resp == '1':
         inputs = get_inputs()
@@ -69,11 +68,32 @@ def start_review(playlist, library):
         print("Please enter a valid input.")
         return start_review(playlist, library)
 
+def swap_song(playlist, library, key, song_index):
+    """
+        Swaps current song at song_index with
+        the song at the specified key in the library.
+    """
+    song = library[key][0]
+    playlist[song_index] = song
+    library[key].remove(song)
+    print("Your new playlist is:")
+    print_playlist(playlist)
+
+def get_song_index():
+    """
+        Gets song_index to swap from user.
+    """
+    song_index = input('Please enter the number of the song you want to swap:\n')
+    print()
+    check_input(song_index)
+    song_index = int(song_index)
+    return song_index
+
 def print_playlist(playlist):
     """
         Print formatted playlist.
     """
-    i = 1
+    i = 0
     for track in playlist:
         print(i, ": ", track['name'] + " (" + str(track['bpm']) + " BPM)")
         i += 1
