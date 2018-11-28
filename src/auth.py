@@ -168,6 +168,8 @@ def finish_auth(auth, user_id, auth_code):
     refresh_token = response["refresh_token"]
     expires_at = response["expires_at"]
 
+    print(response)
+
     C.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_at) \
         VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_at))
     CONN.commit()
@@ -195,12 +197,12 @@ def get_new_token(local_conn, lc):
         VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_at))
     local_conn.commit()
 
-def get_current_user_token():
+def get_current_user_token(db_file="bpm.db"):
     '''
         Retrieves current user's access token.
     '''
 
-    local_conn = sqlite3.connect("bpm.db")
+    local_conn = sqlite3.connect(db_file)
     lc = local_conn.cursor()
     login_result = lc.execute('SELECT COUNT(*) FROM Credentials').fetchone()[0]
 
