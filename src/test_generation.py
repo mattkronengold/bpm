@@ -4,7 +4,6 @@
 
 '''
 import sqlite3
-from sqlite3 import Error
 import os.path
 from src.database import create_connection, create_user, create_credentials
 from auth import get_current_user_token
@@ -50,8 +49,7 @@ def test_auth_gen():
     generation = run_gen(token, inputs)
     playlist = generation["playlist"]
     expected_tids = ['7l3E7lcozEodtVsSTCkcaA', '78QR3Wp35dqAhFEc2qAGjE',
-                     '1xzBco0xcoJEDXktl7Jxrr', '2xLMifQCjDGFmkHkpNLD9h'] 
+                     '1xzBco0xcoJEDXktl7Jxrr', '2xLMifQCjDGFmkHkpNLD9h']
 
     for i in range(0, 3):
         assert expected_tids[i] == playlist[i]['tid']
-
