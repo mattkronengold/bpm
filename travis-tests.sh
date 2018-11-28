@@ -14,11 +14,13 @@ cd ..
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 
-git checkout -b travis_ci_output
-git pull
-ls
-#git add *.txt
-#git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
+git remote add origin-ci https://${GH_TOKEN}@github.com/mattkronengold/bpm.git
+git fetch origin-ci
+
+git checkout travis_ci_output
+git add *.txt
+git commit -m "Travis build: $TRAVIS_BUILD_NUMBER"
+git push
 
 if [ $RESULT -ne 0 ]
 then
