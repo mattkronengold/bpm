@@ -14,7 +14,7 @@ cd ..
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 
-git remote add origin-ci https://${GH_TOKEN}@github.com/mattkronengold/bpm.git
+git remote add origin-ci https://${GITHUB_TOKEN}@github.com/mattkronengold/bpm.git
 git fetch origin-ci
 
 git checkout travis_ci_output
