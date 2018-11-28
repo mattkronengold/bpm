@@ -48,6 +48,10 @@ def test_auth_gen():
               "end_speed": 200}
 
     generation = run_gen(token, inputs)
-    library = generation["library"]
     playlist = generation["playlist"]
+    expected_tids = ['7l3E7lcozEodtVsSTCkcaA', '78QR3Wp35dqAhFEc2qAGjE',
+                     '1xzBco0xcoJEDXktl7Jxrr', '2xLMifQCjDGFmkHkpNLD9h'] 
+
+    for i in range(0, 3):
+        assert expected_tids[i] == playlist[i]['tid']
 
