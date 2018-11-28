@@ -1,0 +1,33 @@
+************* Module src.test_generation
+src/test_generation.py:32:0: C0301: Line too long (285/100) (line-too-long)
+src/test_generation.py:33:0: C0301: Line too long (156/100) (line-too-long)
+src/test_generation.py:53:0: C0305: Trailing newlines (trailing-newlines)
+src/test_generation.py:30:4: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/test_generation.py:51:4: W0612: Unused variable 'library' (unused-variable)
+src/test_generation.py:52:4: W0612: Unused variable 'playlist' (unused-variable)
+src/test_generation.py:7:0: W0611: Unused Error imported from sqlite3 (unused-import)
+************* Module src.logout
+src/logout.py:21:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.test_database
+src/test_database.py:23:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/test_database.py:34:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.auth
+src/auth.py:177:0: C0103: Argument name "lc" doesn't conform to snake_case naming style (invalid-name)
+src/auth.py:206:4: C0103: Variable name "lc" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.test_logout
+src/test_logout.py:43:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/test_logout.py:56:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.test_inputs
+src/test_inputs.py:34:12: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+src/test_inputs.py:73:12: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+src/test_inputs.py:116:12: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.database
+src/database.py:14:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:23:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:26:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:35:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:39:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 9.63/10
+
