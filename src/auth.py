@@ -193,7 +193,6 @@ def get_new_token(local_conn, lc):
 
     lc.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_at) \
         VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_at))
-    
     local_conn.commit()
 
 def get_current_user_token(db_file="bpm.db"):
