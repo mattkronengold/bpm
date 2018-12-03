@@ -168,8 +168,6 @@ def finish_auth(auth, user_id, auth_code):
     refresh_token = response["refresh_token"]
     expires_at = response["expires_at"]
 
-    print(response)
-
     C.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_at) \
         VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_at))
     CONN.commit()
