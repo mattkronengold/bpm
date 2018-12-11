@@ -1,0 +1,33 @@
+============================= test session starts ==============================
+platform linux -- Python 3.6.3, pytest-3.3.0, py-1.5.2, pluggy-0.6.0
+rootdir: /home/travis/build/mattkronengold/bpm/src, inifile:
+plugins: cov-2.6.0
+collected 14 items
+
+test_database.py .                                                       [  7%]
+test_generation.py .                                                     [ 14%]
+test_inputs.py .........                                                 [ 78%]
+test_logout.py ...                                                       [100%]
+
+----------- coverage: platform linux, python 3.6.3-final-0 -----------
+Name                 Stmts   Miss  Cover
+----------------------------------------
+__init__.py              0      0   100%
+auth.py                133     92    31%
+bpm.py                  26     26     0%
+create_playlist.py      29     29     0%
+database.py             33     13    61%
+generation.py           90     23    74%
+inputs.py               49      9    82%
+logout.py               21      5    76%
+playlist_cache.py       43     37    14%
+review.py               71     71     0%
+test_database.py        21      2    90%
+test_generation.py      29      0   100%
+test_inputs.py          88      0   100%
+test_logout.py          41      0   100%
+----------------------------------------
+TOTAL                  674    307    54%
+
+
+========================== 14 passed in 0.52 seconds ===========================
