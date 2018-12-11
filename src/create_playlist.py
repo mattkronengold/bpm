@@ -6,6 +6,7 @@
 from __future__ import print_function
 import spotipy
 import webbrowser
+from logout import check_input
 
 def create_playlist(token, tracks):
     """Creates playlist from user information and generated tracks"""
@@ -18,6 +19,7 @@ def create_playlist(token, tracks):
         final_song_list.append(track["tid"])
 
     name = input('Enter a name for your new playlist:\n')
+    check_input(name)
     print()
 
     playlist = spotify.user_playlist_create(user_id, name)
@@ -29,6 +31,7 @@ def create_playlist(token, tracks):
     print('0:\tYes')
     print('1:\tNo')
     open_spotify = input()
+    check_input(open_spotify)
     print()
     if open_spotify == '0':
         webbrowser.open('http://open.spotify.com/playlist/'+ playlist_id)
