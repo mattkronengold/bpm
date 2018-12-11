@@ -1,0 +1,49 @@
+************* Module src.test_generation
+src/test_generation.py:31:0: C0301: Line too long (285/100) (line-too-long)
+src/test_generation.py:32:0: C0301: Line too long (156/100) (line-too-long)
+src/test_generation.py:29:4: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.logout
+src/logout.py:23:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.test_database
+src/test_database.py:23:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/test_database.py:34:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.auth
+src/auth.py:175:0: C0103: Argument name "lc" doesn't conform to snake_case naming style (invalid-name)
+src/auth.py:204:4: C0103: Variable name "lc" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.test_logout
+src/test_logout.py:43:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/test_logout.py:56:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.test_inputs
+src/test_inputs.py:34:12: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+src/test_inputs.py:73:12: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+src/test_inputs.py:116:12: C0103: Variable name "f" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.database
+src/database.py:14:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:23:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:26:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:35:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:39:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:48:8: C0103: Variable name "c" doesn't conform to snake_case naming style (invalid-name)
+src/database.py:51:4: C0103: Variable name "e" doesn't conform to snake_case naming style (invalid-name)
+************* Module src.bpm
+src/bpm.py:13:0: E0001: Cannot import 'create_playlist' due to syntax error 'invalid syntax (<unknown>, line 9)' (syntax-error)
+************* Module src.create_playlist
+src/create_playlist.py:9:0: E0001: invalid syntax (<unknown>, line 9) (syntax-error)
+************* Module src.playlist_cache
+src/playlist_cache.py:9:0: C0111: Missing function docstring (missing-docstring)
+src/playlist_cache.py:10:4: C0103: Variable name "CONN" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:11:4: C0103: Variable name "C" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:12:8: C0103: Variable name "p" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:18:0: C0111: Missing function docstring (missing-docstring)
+src/playlist_cache.py:29:4: W0702: No exception type(s) specified (bare-except)
+src/playlist_cache.py:20:8: C0103: Variable name "CONN" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:21:8: C0103: Variable name "C" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:26:12: C0103: Variable name "p" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:32:0: C0111: Missing function docstring (missing-docstring)
+src/playlist_cache.py:33:4: C0103: Variable name "CONN" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:34:4: C0103: Variable name "C" doesn't conform to snake_case naming style (invalid-name)
+src/playlist_cache.py:39:0: C0111: Missing function docstring (missing-docstring)
+
+-----------------------------------
+Your code has been rated at 9.33/10
+
