@@ -4,6 +4,8 @@
 from __future__ import print_function
 import sys
 import sqlite3
+from playlist_cache import remove_playlist_cache
+
 
 def check_input(user_input):
     '''
@@ -29,6 +31,7 @@ def logout(db_file):
         # remove from credentials table
         c.execute('DELETE FROM Credentials WHERE user_id = ?;', (user_id,))
         conn.commit()
+        remove_playlist_cache()
         # exit program
         sys.exit(0)
     except ValueError:
