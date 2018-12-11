@@ -6,7 +6,9 @@
 from __future__ import print_function
 import spotipy
 import webbrowser
+<<<<<<< HEAD
 from logout import check_input
+from playlist_cache import remove_playlist_cache
 
 def create_playlist(token, tracks):
     """Creates playlist from user information and generated tracks"""
@@ -36,3 +38,4 @@ def create_playlist(token, tracks):
     if open_spotify == '0':
         webbrowser.open('http://open.spotify.com/playlist/'+ playlist_id)
     print('Your playlist has been saved to Spotify!')
+    remove_playlist_cache()

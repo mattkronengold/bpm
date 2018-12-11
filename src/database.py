@@ -40,4 +40,16 @@ def create_credentials(db_file):
         print(e)
     finally:
         conn.close()
+
+def create_playlist(db_file):
+    ''' Creates a Playlist table. '''
+    try:
+        conn = sqlite3.connect(db_file)
+        c = conn.cursor()
+        c.execute('''CREATE TABLE Playlist (tid text PRIMARY KEY, \
+        name text, duration integer, bpm integer)''')
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()
         

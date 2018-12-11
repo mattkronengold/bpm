@@ -11,6 +11,7 @@ from inputs import get_inputs
 from generation import run_gen
 from review import start_review, print_playlist
 from create_playlist import create_playlist
+from playlist_cache import get_playlist_cache, cache_playlist, check_cache
 
 def main():
     """
@@ -19,6 +20,11 @@ def main():
 
     if auth.welcome():
         token = auth.get_current_user_token()
+
+        if(check_cache(print_playlist)):
+            playlist = get_playlist_cache()
+            create_playlist(token, playlist)
+            print("Let's create another playlist!")
 
         inputs = get_inputs()
 
@@ -30,6 +36,7 @@ def main():
         print_playlist(playlist)
 
         playlist = start_review(playlist, library)
+        cache_playlist(playlist)
 
         create_playlist(token, playlist)
 
