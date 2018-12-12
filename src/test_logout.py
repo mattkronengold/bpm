@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 '''
 
-@author: torlofski
+@author: torlofski, mattkronengold
 
 '''
 
@@ -10,7 +10,7 @@ import sqlite3
 import os
 from mock import patch
 from logout import logout, check_input
-from database import create_connection, create_user, create_credentials
+from database import create_connection, verify_tables, insert_dislike
 
 class CheckInputTestCase(unittest.TestCase):
     """check_input function tests"""
@@ -35,24 +35,30 @@ class LogoutTestCase(unittest.TestCase):
     """logout function tests"""
 
     def setUp(self):
-        create_connection('bpm_test.db')
-        create_user('bpm_test.db')
-        create_credentials('bpm_test.db')
+        db_file = 'bpm_test.db'
 
-        conn = sqlite3.connect('bpm_test.db')
+        create_connection(db_file)
+        verify_tables(db_file)
+
+        conn = sqlite3.connect(db_file)
         c = conn.cursor()
         c.execute('INSERT INTO User(id, username) VALUES (123456, "test_user")')
         c.execute('INSERT INTO Credentials (user_id, access_token, \
             refresh_token, expires_at) VALUES (123456, "test_token", \
             "test_token", 21)')
+        insert_dislike(db_file, 'test')
         conn.close()
 
     def tearDown(self):
-        os.remove('bpm_test.db')
+        db_file = 'bpm_test.db'
+
+        os.remove(db_file)
 
     def test_proper_logout(self):
         """Tests that logout is doing what it should under normal input"""
-        conn = sqlite3.connect('bpm_test.db')
+
+        db_file = 'bpm_test.db'
+        conn = sqlite3.connect(db_file)
         c = conn.cursor()
 
         #these 2 lines are to make sure that the setup function ran correctly
@@ -60,8 +66,12 @@ class LogoutTestCase(unittest.TestCase):
             Credentials").fetchone()
         self.assertIsNotNone(credentials_table_exists)
 
-        logout('bpm_test.db')
+        logout(db_file)
 
         user_id2 = c.execute('SELECT C.user_id FROM Credentials C').fetchone()
+        playlist = c.execute('SELECT * FROM Playlist').fetchone()
+        dislikes = c.execute('SELECT * FROM Dislikes').fetchone()
         self.assertIsNone(user_id2)
+        self.assertIsNone(playlist)
+        self.assertIsNone(dislikes)
         conn.close()

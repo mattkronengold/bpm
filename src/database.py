@@ -98,3 +98,31 @@ def insert_dislike(db_file, tid):
 
     finally:
         conn.close()
+
+def is_disliked(db_file, tid):
+    '''Check if a song is disliked'''
+
+    try:
+        conn = sqlite3.connect(db_file)
+        c = conn.cursor()
+        tid = c.execute("SELECT * FROM Dislikes WHERE tid='%s'" \
+            % tid).fetchone()
+        return tid is not None
+    except Error as e:
+        print(e)
+        return False
+    finally:
+        conn.close()
+
+def remove_dislikes(db_file):
+    ''' Remove all disliked songs '''
+
+    try:
+        conn = sqlite3.connect(db_file)
+        c = conn.cursor()
+        c.execute('DELETE FROM Dislikes')
+        conn.commit()
+    except Error as e:
+        print(e)
+    finally:
+        conn.close()

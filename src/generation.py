@@ -9,6 +9,7 @@ from __future__ import print_function
 from collections import defaultdict
 import random
 import spotipy
+from database import is_disliked
 
 GENRES = {0: "any",
           1: "rock",
@@ -67,6 +68,12 @@ def scan_library(spotify, genre, start_speed, end_speed, reverse):
             track = result["track"]
 
             if not has_genre(spotify, track, genre):
+                continue
+
+            # Check if song is disliked
+            # This also prevents a disliked song from being swapped in because
+            # we use this library dictionary in review.py
+            if is_disliked('bpm.db', track["id"]):
                 continue
 
             tid = track["id"]

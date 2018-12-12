@@ -1,16 +1,17 @@
 '''
 
-@author: torlofski
+@author: torlofski, mattkronengold
 
 '''
 import sqlite3
 from sqlite3 import Error
 import os.path
-from src.database import create_connection, verify_tables
+from src.database import create_connection, verify_tables, \
+insert_dislike, is_disliked, remove_dislikes
 
 
 def test_databases():
-    """Test the database"""
+    '''Test the database'''
 
     db_file = "bpm_t.db"
 
@@ -33,7 +34,7 @@ def test_databases():
 
         playlist_table_exists = c.execute("SELECT count(*) from \
             sqlite_master WHERE type='table' AND name='Playlist'").fetchone()
-        assert creds_table_exists
+        assert playlist_table_exists
 
         dislikes_table_exists = c.execute("SELECT count(*) from \
             sqlite_master WHERE type='table' AND name='Dislikes'").fetchone()
@@ -44,3 +45,27 @@ def test_databases():
     finally:
         conn.close()
         os.remove(db_file)
+
+def test_dislikes():
+    ''' Test dislike feature'''
+
+    db_file = "bpm_t.db"
+    verify_tables(db_file)
+
+    assert not is_disliked(db_file, '100')
+
+    insert_dislike(db_file, '101')
+    assert is_disliked(db_file, '101')
+
+    insert_dislike(db_file, '103')
+    insert_dislike(db_file, '104')
+    assert is_disliked(db_file, '101')
+    assert is_disliked(db_file, '103')
+    assert is_disliked(db_file, '104')
+
+    remove_dislikes(db_file)
+
+    for tid in ['100', '101', '102', '103', '104']:
+        assert not is_disliked(db_file, tid)
+
+    os.remove(db_file)
