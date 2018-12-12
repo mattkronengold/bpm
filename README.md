@@ -8,6 +8,7 @@ BPM: A Better Playlist Builder
 3. Navigate to the bpm directory
 4. Install requirements
 	* ```pip install -r requirements.txt```
+	* Depending on your system configuration, you may need to use the command: ```pip3 install -r requirements.txt```
 
 ## Running
 1. Navigate to the bpm directory
