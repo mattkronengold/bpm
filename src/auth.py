@@ -153,6 +153,8 @@ def get_code(auth, user_id):
     '''
         Prompts user to enter validation code that they are redirected to.
     '''
+    print("\nThe Spotify validation code will be located in the website address you are redirected to.")
+    print("The format will be https://localhost/?code=<CODE>")
     print("\nPlease copy and paste your validation code from the browser: ")
     auth_code = input()
     check_input(auth_code)
