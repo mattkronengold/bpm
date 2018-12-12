@@ -4,7 +4,7 @@ BPM: A Better Playlist Builder
 ## Installing
 1. Clone the github repository
 	* ```git clone git@github.com:mattkronengold/bpm.git```
-2. Install python & pip
+2. Install python3 & pip3
 3. Navigate to the bpm directory
 4. Install requirements
 	* ```pip install -r requirements.txt```
