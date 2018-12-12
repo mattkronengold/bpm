@@ -61,7 +61,7 @@ def scan_library(spotify, genre, start_speed, end_speed, reverse):
     results = spotify.current_user_saved_tracks(limit=20, offset=0)
 
     # Currently limit to scanning 100 tracks
-    for _ in range(0, 5):
+    while True:
         for result in results["items"]:
 
             track = result["track"]
