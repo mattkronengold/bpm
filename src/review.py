@@ -15,18 +15,23 @@ def start_review(playlist, library):
     '''
     print('Would you like to make any changes to your playlist?')
     print('0:\tYes, I want to swap a song')
-    print('1:\tYes, I want to change the parameters')
-    print('2:\tNo, I like it the way it is')
+    print('1:\tYes, I want to swap a song and dislike it')
+    print('2:\tYes, I want to change the parameters')
+    print('3:\tNo, I like it the way it is')
     resp = input()
     print()
     check_input(resp)
-    if resp == '0':
+    if resp in ['0', '1']:
         song_index = get_song_index()
         while song_index not in range(len(playlist)):
             print("Please enter a valid input.")
             song_index = get_song_index()
 
         song_dict = playlist[song_index]
+
+        if resp == '1':
+            insert_dislike('bpm.db', song_dict['tid'])
+
         song_bpm = song_dict["bpm"]
         first_key = list(library.keys())[0]
         if library[song_bpm]:
@@ -51,7 +56,7 @@ def start_review(playlist, library):
                 print_playlist(playlist)
                 return start_review(playlist, library)
         return start_review(playlist, library)
-    elif resp == '1':
+    elif resp == '2':
         inputs = get_inputs()
         token = get_current_user_token()
 
@@ -62,7 +67,7 @@ def start_review(playlist, library):
         print("Your generated playlist is: ")
         print_playlist(playlist)
         return start_review(playlist, library)
-    elif resp == '2':
+    elif resp == '3':
         # return playlist to save
         return playlist
     else:
@@ -74,8 +79,6 @@ def swap_song(playlist, library, key, song_index):
         Swaps current song at song_index with
         the song at the specified key in the library.
     """
-
-    insert_dislike('bpm.db', playlist[song_index]['tid'])
 
     song = library[key][0]
     playlist[song_index] = song
