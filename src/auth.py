@@ -155,6 +155,7 @@ def get_code(auth, user_id):
     '''
     print("\nPlease copy and paste your validation code from the browser: ")
     auth_code = input()
+    print()
     check_input(auth_code)
     finish_auth(auth, user_id, auth_code)
 
