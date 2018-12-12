@@ -139,7 +139,7 @@ def create_username():
             (username,)).fetchone()[0]
         return user_id
 
-    except ValueError:
+    except sqlite3.IntegrityError:
         print('\nThat username is already taken. Please enter a different username.\n')
         return create_username()
 
