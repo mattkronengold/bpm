@@ -16,7 +16,7 @@ def create_connection(db_file):
     finally:
         conn.close()
 
-def create_user(db_file):
+def create_user(db_file, print_err=True):
     ''' Creates a User table. '''
     try:
         conn = sqlite3.connect(db_file)
@@ -24,11 +24,14 @@ def create_user(db_file):
         c.execute('''CREATE TABLE User
             (id integer PRIMARY KEY, username text UNIQUE)''')
     except Error as e:
-        print(e)
+        if print_err:
+            print(e)
+        else:
+            pass
     finally:
         conn.close()
 
-def create_credentials(db_file):
+def create_credentials(db_file, print_err=True):
     ''' Creates a Credentials table. '''
     try:
         conn = sqlite3.connect(db_file)
@@ -37,11 +40,14 @@ def create_credentials(db_file):
         access_token text, refresh_token text, expires_at integer, last_refreshed \
         TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES User (id))''')
     except Error as e:
-        print(e)
+        if print_err:
+            print(e)
+        else:
+            pass
     finally:
         conn.close()
 
-def create_playlist(db_file):
+def create_playlist(db_file, print_err=True):
     ''' Creates a Playlist table. '''
     try:
         conn = sqlite3.connect(db_file)
@@ -49,26 +55,46 @@ def create_playlist(db_file):
         c.execute('''CREATE TABLE Playlist (tid text PRIMARY KEY, \
         name text, duration integer, bpm integer)''')
     except Error as e:
-        print(e)
+        if print_err:
+            print(e)
+        else:
+            pass
+    finally:
+        conn.close()
+
+def create_dislikes(db_file, print_err=True):
+    ''' Creates a Playlist table. '''
+    try:
+        conn = sqlite3.connect(db_file)
+        c = conn.cursor()
+        c.execute('''CREATE TABLE Dislikes (tid text PRIMARY KEY)''')
+    except Error as e:
+        if print_err:
+            print(e)
+        else:
+            pass
     finally:
         conn.close()
 
 def verify_tables(db_file):
-    '''Attempts to create all tables'''
+    '''Attempts to create all tables if they don't exist'''
+
+    create_user(db_file, False)
+    create_credentials(db_file, False)
+    create_playlist(db_file, False)
+    create_dislikes(db_file, False)
+
+def insert_dislike(db_file, tid):
+    '''Insert a song into the dislikes table'''
+
     try:
         conn = sqlite3.connect(db_file)
         c = conn.cursor()
+        c.execute('INSERT INTO Dislikes(tid) VALUES (?);', (tid,))
+        conn.commit()
 
-        c.execute('''CREATE TABLE Playlist (tid text PRIMARY KEY, \
-        name text, duration integer, bpm integer)''')
-
-        c.execute('''CREATE TABLE Credentials (user_id integer PRIMARY KEY, \
-        access_token text, refresh_token text, expires_at integer, last_refreshed \
-        TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES User (id))''')
-
-        c.execute('''CREATE TABLE User
-            (id integer PRIMARY KEY, username text UNIQUE)''')
-    except:
+    except Error:
         pass
+
     finally:
         conn.close()

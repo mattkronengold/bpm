@@ -7,6 +7,7 @@ from logout import check_input
 from inputs import get_inputs
 from auth import get_current_user_token
 from generation import run_gen
+from database import insert_dislike
 
 def start_review(playlist, library):
     '''
@@ -73,6 +74,9 @@ def swap_song(playlist, library, key, song_index):
         Swaps current song at song_index with
         the song at the specified key in the library.
     """
+
+    insert_dislike('bpm.db', playlist[song_index]['tid'])
+
     song = library[key][0]
     playlist[song_index] = song
     library[key].remove(song)
@@ -86,7 +90,12 @@ def get_song_index():
     song_index = input('Please enter the number of the song you want to swap:\n')
     print()
     check_input(song_index)
-    song_index = int(song_index)
+    try:
+        song_index = int(song_index)
+    except ValueError:
+        print('Please enter an integer value.')
+        return get_song_index()
+
     return song_index
 
 def print_playlist(playlist):
