@@ -4,8 +4,8 @@
 
 '''
 from __future__ import print_function
-import spotipy
 import webbrowser
+import spotipy
 from logout import check_input
 from playlist_cache import remove_playlist_cache
 
