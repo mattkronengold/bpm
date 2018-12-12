@@ -52,4 +52,23 @@ def create_playlist(db_file):
         print(e)
     finally:
         conn.close()
-        
+
+def verify_tables(db_file):
+    '''Attempts to create all tables'''
+    try:
+        conn = sqlite3.connect(db_file)
+        c = conn.cursor()
+
+        c.execute('''CREATE TABLE Playlist (tid text PRIMARY KEY, \
+        name text, duration integer, bpm integer)''')
+
+        c.execute('''CREATE TABLE Credentials (user_id integer PRIMARY KEY, \
+        access_token text, refresh_token text, expires_at integer, last_refreshed \
+        TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (user_id) REFERENCES User (id))''')
+
+        c.execute('''CREATE TABLE User
+            (id integer PRIMARY KEY, username text UNIQUE)''')
+    except:
+        pass
+    finally:
+        conn.close()

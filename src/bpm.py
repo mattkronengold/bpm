@@ -12,11 +12,14 @@ from generation import run_gen
 from review import start_review, print_playlist
 from create_playlist import create_playlist
 from playlist_cache import get_playlist_cache, cache_playlist, check_cache
+from database import verify_tables
 
 def main():
     """
         Run BPM application
     """
+
+    verify_tables('bpm.db')
 
     if auth.welcome():
         token = auth.get_current_user_token()
