@@ -10,6 +10,7 @@ from logout import check_input
 from playlist_cache import remove_playlist_cache
 
 def create_playlist(token, tracks):
+
     """Creates playlist from user information and generated tracks"""
     spotify = spotipy.Spotify(auth=token)
     user = spotify.current_user()
@@ -23,8 +24,19 @@ def create_playlist(token, tracks):
     check_input(name)
     print()
 
-    playlist = spotify.user_playlist_create(user_id, name)
-    playlist_id = playlist['id']
+    add_integer = False
+    results = spotify.current_user_playlists(50, 0)
+    user_playlists = results['items']
+    for result in user_playlists:
+        if (result['name'] == name):
+            add_integer = True
+
+    if (not add_integer):
+        playlist = spotify.user_playlist_create(user_id, name)
+        playlist_id = playlist['id']
+    else:
+        playlist = spotify.user_playlist_create(user_id, name + "1")
+        playlist_id = playlist['id']
 
     for song in final_song_list:
         spotify.user_playlist_add_tracks(user_id, playlist_id=playlist_id, tracks=[song])
