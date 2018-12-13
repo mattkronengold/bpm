@@ -167,15 +167,21 @@ def finish_auth(auth, user_id, auth_code):
     '''
         Adds user authentication tokens to Credentials.
     '''
-    response = auth.get_access_token(auth_code)
 
-    access_token = response["access_token"]
-    refresh_token = response["refresh_token"]
-    expires_at = response["expires_at"]
+    try:
+        response = auth.get_access_token(auth_code)
 
-    C.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_at) \
-        VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_at))
-    CONN.commit()
+        access_token = response["access_token"]
+        refresh_token = response["refresh_token"]
+        expires_at = response["expires_at"]
+
+        C.execute('INSERT INTO Credentials(user_id, access_token, refresh_token, expires_at) \
+            VALUES (?, ?, ?, ?);', (user_id, access_token, refresh_token, expires_at))
+        CONN.commit()
+    except:
+        print("That code didnt work! please try again.")
+        authenticate(auth)
+        get_code(auth, user_id)
 
 def get_new_token(local_conn, lc):
     '''
