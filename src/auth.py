@@ -7,6 +7,7 @@ from __future__ import print_function
 import sqlite3
 import webbrowser
 import time
+import pyfiglet
 from spotipy import oauth2
 from logout import check_input
 
@@ -36,7 +37,8 @@ def welcome():
         C.execute('DELETE FROM Credentials')
         CONN.commit()
 
-        print('\nWelcome to BPM!')
+        result = pyfiglet.figlet_format("Welcome to BPM!")
+        print(result)
         print('\nDo you have a BPM account?')
         print('0:\tYes')
         print('1:\tNo')
