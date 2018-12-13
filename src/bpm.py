@@ -24,8 +24,8 @@ def main():
     if auth.welcome():
         token = auth.get_current_user_token()
 
-        if(check_cache(print_playlist)):
-            playlist = get_playlist_cache()
+        if(check_cache(print_playlist, 'bpm.db')):
+            playlist = get_playlist_cache('bpm.db')
             create_playlist(token, playlist)
             print("Let's create another playlist!")
 
@@ -39,7 +39,7 @@ def main():
         print_playlist(playlist)
 
         playlist = start_review(playlist, library)
-        cache_playlist(playlist)
+        cache_playlist(playlist, 'bpm.db')
 
         create_playlist(token, playlist)
 
