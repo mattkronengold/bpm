@@ -86,7 +86,7 @@ def get_username():
     '''
         Checks for existing BPM users.
     '''
-    username = input('\nEnter your BPM username: ')
+    username = input('\nEnter your BPM username:\n')
     check_input(username)
 
     try:

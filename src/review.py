@@ -107,6 +107,7 @@ def print_playlist(playlist):
     """
     i = 0
     for track in playlist:
-        print(i, ": ", track['name'] + " (" + str(track['bpm']) + " BPM)")
+        s = str(i)
+        print(s + ":\t", track['name'] + " (" + str(track['bpm']) + " BPM)")
         i += 1
     print()
