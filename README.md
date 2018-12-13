@@ -1,4 +1,4 @@
-# bpm
+# BPM
 BPM: A Better Playlist Builder
 
 ## Installing
@@ -35,3 +35,16 @@ Test commands are maintained in the file pre-commit.sh
 
 Both of these tests are un in the pre-commit hook which can be executed with:
 ```./pre-commit.sh```
+
+## Operating
+1. Welcome to BPM! If you are a new user, please enter a username for your BPM account. If you are a returning user, please enter your BPM username.
+2. Your browser will direct you to authenticate with your Spotify credentials. Please copy and paste the authentication code into the terminal.
+3. You will be asked to choose from a menu of genres for your playlist. Please enter an integer corresponding to one of the menu items.
+4. You will be asked to specify the length of your playlist in minutes. Please enter an integer between 5 and 90 minutes.
+5. You will be asked to enter the start and end speed of your run in steps per minute. Please enter an integer between 50 and 300.
+6. Wait while we scan your library to build your custom playlist.
+7. You will be shown your generated playlist and a menu of options to swap out a song, swap out a song and dislike it for future playlists, go back and change the parameters, or keep your playlist the way it is.
+8. You will be asked to enter a name for your playlist. Please enter a unique string.
+You will be asked whether you’d like to open Spotify and start listening to your playlist. Please enter an integer corresponding to yes or no.
+9. At any time in this process, please enter “logout” to logout of BPM. 
+
