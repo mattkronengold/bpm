@@ -1,4 +1,4 @@
-# bpm
+# BPM
 BPM: A Better Playlist Builder
 
 ## Installing
@@ -38,7 +38,7 @@ Both of these tests are un in the pre-commit hook which can be executed with:
 
 ## Operating
 1. Enter a username for your BPM account (new user) or your BPM username (returning user).
-2. Your browser will direct you to authenticate with your Spotify credentials. Copy and paste the authentication code into the terminal. The format will be https://localhost/?code=<YOUR AUTHENTICATION CODE>
+2. Your browser will direct you to authenticate with your Spotify credentials. Copy and paste the authentication code into the terminal. The format will be https://localhost/?code= <YOUR AUTHENTICATION CODE>
 3. Enter your preference of genre, playlist length, start speed, and end speed.
 4. Wait while we scan your library to build your custom playlist.
 5. Review your generated playlist and specify whether you want to swap out a song, swap out a song and dislike it, change the parameters for your playlist, or continue with the playlist that was generated.
