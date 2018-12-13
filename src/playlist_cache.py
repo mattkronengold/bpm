@@ -6,8 +6,8 @@
 from __future__ import print_function
 import sqlite3
 
-def cache_playlist(playlist):
-    CONN = sqlite3.connect("bpm.db")
+def cache_playlist(playlist, db_file):
+    CONN = sqlite3.connect(db_file)
     C = CONN.cursor()
     for p in playlist:
         C.execute('INSERT INTO Playlist(tid, name, duration, bpm) VALUES(?, ?, ?, ?);', \
@@ -15,9 +15,9 @@ def cache_playlist(playlist):
     CONN.commit()
     CONN.close()
 
-def get_playlist_cache():
+def get_playlist_cache(db_file):
     try:
-        CONN = sqlite3.connect("bpm.db")
+        CONN = sqlite3.connect(db_file)
         C = CONN.cursor()
         playlist = C.execute('SELECT * FROM Playlist').fetchall()
         CONN.commit()
@@ -29,17 +29,17 @@ def get_playlist_cache():
     except:
         return 0
 
-def remove_playlist_cache():
-    CONN = sqlite3.connect("bpm.db")
+def remove_playlist_cache(db_file):
+    CONN = sqlite3.connect(db_file)
     C = CONN.cursor()
     C.execute('DELETE FROM Playlist')
     CONN.commit()
     CONN.close()
 
-def check_cache(print_playlist):
-    if(get_playlist_cache()):
+def check_cache(print_playlist, db_file):
+    if(get_playlist_cache(db_file)):
         print("The following playlist did not save to Spotify in your last session: ")
-        print_playlist(get_playlist_cache())
+        print_playlist(get_playlist_cache(db_file))
         print("Would you like to save it now?")
         print("0:\tYes")
         print("1:\tNo")
@@ -48,6 +48,6 @@ def check_cache(print_playlist):
         if resp == '0':
             return 1
         elif resp == '1':
-            remove_playlist_cache()
+            remove_playlist_cache(db_file)
             print("Let's create another playlist!")
     return 0
