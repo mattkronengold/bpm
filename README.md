@@ -38,7 +38,7 @@ Both of these tests are un in the pre-commit hook which can be executed with:
 
 ## Operating
 1. Welcome to BPM! If you are a new user, please enter a username for your BPM account. If you are a returning user, please enter your BPM username.
-2. Your browser will direct you to authenticate with your Spotify credentials. Copy and paste the authentication code into the terminal. The format will be of the form: “https://localhost/?code=”<CODE>
+2. Your browser will direct you to authenticate with your Spotify credentials. Please copy and paste the authentication code into the terminal.
 3. You will be asked to choose from a menu of genres for your playlist. Please enter an integer corresponding to one of the menu items.
 4. You will be asked to specify the length of your playlist in minutes. Please enter an integer between 5 and 90 minutes.
 5. You will be asked to enter the start and end speed of your run in steps per minute. Please enter an integer between 50 and 300.
