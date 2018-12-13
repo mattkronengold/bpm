@@ -4,3 +4,4 @@ pylint
 mock
 coverage
 pytest-cov
+pyfiglet
