@@ -37,4 +37,4 @@ def create_playlist(token, tracks):
     if open_spotify == '0':
         webbrowser.open('http://open.spotify.com/playlist/'+ playlist_id)
     print('Your playlist has been saved to Spotify!')
-    remove_playlist_cache()
+    remove_playlist_cache('bpm.db')
