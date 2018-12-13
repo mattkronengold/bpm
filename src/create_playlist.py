@@ -1,6 +1,6 @@
 '''
 
-@author: torlofskii, alanaanderson
+@author: torlofski, alanaanderson
 
 '''
 from __future__ import print_function
