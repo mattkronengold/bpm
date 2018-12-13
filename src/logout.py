@@ -32,7 +32,7 @@ def logout(db_file):
         # remove from credentials table
         c.execute('DELETE FROM Credentials WHERE user_id = ?;', (user_id,))
         conn.commit()
-        remove_playlist_cache()
+        remove_playlist_cache(db_file)
         remove_dislikes(db_file)
         # exit program
         sys.exit(0)
